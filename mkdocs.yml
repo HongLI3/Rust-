@@ -1,10 +1,12 @@
 # Project information 项目信息 
 site_name: Rust 笔记
-site_url: https://mydomain.org/mysite #站点
+site_url: https://mydomain.org/mysite/Rust-Learning-Notes #站点
 site_author: 李宏
-repo_url: https://github.com/HongLI3 # 指向 Github 的链接
-#repo_name: HongLI3/ # 指向 Github 存储库
 site_description: Rust个人学习笔记 # 设置站点描述
+# Repository 存储库
+repo_name: HongLI3/Rust-Learning-Notes # Github 存储库名
+repo_url: https://github.com/HongLI3/Rust-Learning-Notes # 指向 Github 的链接
+
 
 # Build directories 构建目录
 theme:
