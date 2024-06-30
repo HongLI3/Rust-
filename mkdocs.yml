@@ -1,0 +1,29 @@
+# Project information 项目信息 
+site_name: Rust 笔记
+site_url: https://mydomain.org/mysite #站点
+site_author: 李宏
+repo_url: https://github.com/HongLI3 # 指向 Github 的链接
+#repo_name: HongLI3/ # 指向 Github 存储库
+site_description: Rust个人学习笔记 # 设置站点描述
+
+# Build directories 构建目录
+theme:
+  name: material
+  language: zh
+
+# Extensions 扩展
+markdown_extensions:  # markdown 扩展
+  - admonition  #提供警告功能
+  - pymdownx.highlight: # 高亮
+      anchor_linenums: true # 锚文本
+      use_pygments: true # 使用pygments语法高亮库
+      pygments_lang_class: true # 指示 Pygments 添加一个 CSS 类来标识代码块的语言
+      auto_title: true # 将自动向所有代码块添加标题，显示所使用语言的名称
+      linenums: true # 自动行号
+      line_spans: __span #
+  - pymdownx.superfences
+
+# Documentation layout 文档布局
+nav:  #Page Tree navigation 导航
+  - Rust 简述: index.md
+  - 第一章 Rust 安装与配置: Rust安装与配置.md
