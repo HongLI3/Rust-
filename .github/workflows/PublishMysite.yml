@@ -15,8 +15,8 @@ jobs:  # 作业
       - name: Checkout  # 检出,指的是将版本控制系统中的代码或文件从代码库中复制到本地工作目录中,以便进行修改和编辑。可选。
       - uses: actions/checkout@v4
       - name: Install Python
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-      - run: pip install mkdocs-material # 关键字 run 指示作业在运行器shell上执行命令
-      - run: mkdocs gh-deploy --force
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.x
+      run: pip install mkdocs-material # 关键字 run 指示作业在运行器shell上执行命令
+      run: mkdocs gh-deploy --force
