@@ -1,0 +1,22 @@
+name: Build and Deploy  # 构建并部署。可选的工作流名字
+on: # 工作流的触发器
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+job:  # 作业
+  deploy: # 定义名为 部署 的作业，子键将定义该作业属性
+    runs-on: ubuntu-latest  # 运行于 Ubuntu
+    steps:  # 将 部署 作业中运行的所有步骤组合在一起。嵌套在此部分下的每个项目都是一个单独的操作或 shell 脚本。
+      - name: Checkout  # 检出,指的是将版本控制系统中的代码或文件从代码库中复制到本地工作目录中,以便进行修改和编辑。可选。
+      - uses: actions/checkout@v4
+      - name: Install Python
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - run: pip install mkdocs-material # 关键字 run 指示作业在运行器shell上执行命令
+      - run: mkdocs gh-deploy --force
