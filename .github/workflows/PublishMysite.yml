@@ -14,7 +14,7 @@ jobs:  # 作业
     steps:  # 将 部署 作业中运行的所有步骤组合在一起。嵌套在此部分下的每个项目都是一个单独的操作或 shell 脚本。
       #- run: echo "hello world"
       - name: Checkout  # 检出,指的是将版本控制系统中的代码或文件从代码库中复制到本地工作目录中,以便进行修改和编辑。可选。
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 #一项项目下的名字后需要跟一个步骤，并且不需要-。否则会报错
       - name: Install Python
         uses: actions/setup-python@v5
         with:

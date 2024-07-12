@@ -11,21 +11,55 @@ repo_url: https://github.com/HongLI3/Rust-Learning-Notes # 指向 Github 的链�
 # Build directories 构建目录
 theme:
   name: material
+  favicon: img/favicon.ico
   language: zh
+  font:
+    code: JetBrains Mono
+  features: # 特征
+    - content.code.copy # 启用代码复制按钮
+    - content.code.select # 启用代码选择按钮
+    - content.code.annotate # 启用代码注释
+    - content.tooltips  # 启用 tooltips 提示信息
+
+# Extra 额外
+extra:
+  watch:
+    - includes
 
 # Extensions 扩展
 markdown_extensions:  # markdown 扩展
-  - admonition  #提供警告功能
-  - pymdownx.highlight: # 高亮
+  # Admonitions 警告
+  - admonition  #提供警告语法 !!! 关键字 警告块 ??? 关键字 可折叠警告块
+  - pymdownx.details # 详情
+  # Code blocks 代码块
+  - pymdownx.highlight: # code高亮
       anchor_linenums: true # 锚文本
       use_pygments: true # 使用pygments语法高亮库
       pygments_lang_class: true # 指示 Pygments 添加一个 CSS 类来标识代码块的语言
       auto_title: true # 将自动向所有代码块添加标题，显示所使用语言的名称
       linenums: true # 自动行号
       line_spans: __span #
-  - pymdownx.superfences
+  - pymdownx.superfences # 超级栅栏。提供任意嵌套
+  # Lists 列表
+  - def_list  # 使用定义列表和任务列表
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  # Formatting 格式化
+  - pymdownx.critic # 高亮修改文本
+  - pymdownx.caret # 高亮显示文本
+  - pymdownx.keys # 添加 keyboard keys 语法 如：++ctrl+alt+del++
+  - pymdownx.mark # 马克笔
+  - pymdownx.tilde # 上下标
+  # Tooltips 提示信息
+  - abbr  # 缩写
+  - attr_list # 属性列表
+  - pymdownx.snippets: # 片段
+      auto_append:
+        - includes/abbreviations.md
 
 # Documentation layout 文档布局
 nav:  #Page Tree navigation 导航
   - Rust 简述: index.md
   - 第一章 Rust 安装与配置: Rust安装与配置.md
+  - 第二章 常见编程概念: 常见编程概念.md
+  - 第三章 独有编程概念: Rust独有概念.md
