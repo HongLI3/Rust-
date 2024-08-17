@@ -8,3 +8,12 @@
 *[LIR]: Low IR 底层中间表示
 *[AOT]: Ahead-Of-Time 预（编译）
 *[JIT]: Just-In-Time 即时（编译）
+*[API]: Application Programming Interface 应用程序接口
+*[ABI]: Application Binary Interface 应用程序二进制接口
+*[GC]: Garbage Collection 垃圾回收机制
+*[CLR]: Common Language Runtime 公共语言运行库
+*[CTS]: Common Type System 统一类型系统
+*[HTML]: Hyper Text Markup Language 超文本标记语言
+*[DOM]: Document Object Model 文档对象模型
+*[COM]: Component Object Model 组件对象模型
+*[KWIC]: Key Word in Context 上下文关键字
