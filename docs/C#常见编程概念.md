@@ -12,7 +12,7 @@ C# 是一门运行在.NET Core（CLR）上，既可 JIT，也可 AOT，拥有 GC
 
 C# 中，变量分为以下几种类型
 
-- 值类型：值类型的变量存储数据。值类型隐式继承 ValueType 类型，但不能创建直接从 ValueType 继承的类。 
+- 值类型：值类型的变量存储数据。值类型隐式继承 ValueType 类型，但不能创建直接从 ValueType 继承的类。 通常这个值会直接存储与栈中，而不是堆中。可空值类型需要加？
     - 简单类型
         - 有符号整型：`int`、`long`、`short`、`sbyte`
         - 无符号整型：`uint`、`ulong`、`ushort`、`byte`
