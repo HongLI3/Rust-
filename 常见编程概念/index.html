@@ -1,0 +1,935 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rust个人学习笔记">
+      
+      
+        <meta name="author" content="李宏（HongLI3）">
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/Rust-Learning-Notes/%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/">
+      
+      
+        <link rel="prev" href="../Rust%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/">
+      
+      
+        <link rel="next" href="../Rust%E7%8B%AC%E6%9C%89%E6%A6%82%E5%BF%B5/">
+      
+      
+      <link rel="icon" href="../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+    
+    
+      
+        <title>第二章 常见编程概念 - Rust 笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="Rust 笔记" class="md-header__button md-logo" aria-label="Rust 笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Rust 笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第二章 常见编程概念
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/HongLI3/Rust-Learning-Notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HongLI3/Rust-Learning-Notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Rust 笔记" class="md-nav__button md-logo" aria-label="Rust 笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Rust 笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/HongLI3/Rust-Learning-Notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HongLI3/Rust-Learning-Notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rust 简述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rust%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第一章 Rust 安装与配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    第二章 常见编程概念
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    第二章 常见编程概念
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码规范
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代码规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      标识符常见命名法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rust 中的常见命名法与规范
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#as_to_into_" class="md-nav__link">
+    <span class="md-ellipsis">
+      临时转换命名遵循 as_、to_、into_ 的约定
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getter" class="md-nav__link">
+    <span class="md-ellipsis">
+      获取器（Getter）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterator" class="md-nav__link">
+    <span class="md-ellipsis">
+      集合迭代器（Iterator）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      表达式与语句
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      类型系统（type system）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="类型系统（type system）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据类型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rust%E7%8B%AC%E6%9C%89%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第三章 独有编程概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../C%23%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C#常见编程概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    复杂度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E7%BB%84%E4%B8%8E%E9%93%BE%E8%A1%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数组与链表
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码规范
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代码规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      标识符常见命名法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rust 中的常见命名法与规范
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#as_to_into_" class="md-nav__link">
+    <span class="md-ellipsis">
+      临时转换命名遵循 as_、to_、into_ 的约定
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getter" class="md-nav__link">
+    <span class="md-ellipsis">
+      获取器（Getter）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterator" class="md-nav__link">
+    <span class="md-ellipsis">
+      集合迭代器（Iterator）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      表达式与语句
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      类型系统（type system）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="类型系统（type system）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据类型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>第二章 常见编程概念</h1>
+
+<h2 id="_1">代码规范</h2>
+<h3 id="_2">标识符常见命名法</h3>
+<dl>
+<dt><code>驼峰命名法（CamelCase）</code></dt>
+<dd>
+<p>不同单词之间没有分隔符，大小写混合区分不同单词。 </p>
+<dl>
+<dt><code>大驼峰命名法（UpperCamelCase）</code></dt>
+<dd>又称为帕斯卡命名法（PascalCase）：首字母大写。复合词的首字母缩写和缩略词算作一个单词:使用Uuid而不是UUID，使用Usize而不是USize,使用Stdin而不是StdIn。</dd>
+<dt><code>小驼峰命名法（lowerCamelCase）</code></dt>
+<dd>将大驼峰命名法，首字母改为小写。</dd>
+</dl>
+</dd>
+<dt><code>蛇形命名法（snake_case）</code></dt>
+<dd>
+<p>使用下划线分隔不同单词。</p>
+<dl>
+<dt><code>小蛇式（snake_case）</code></dt>
+<dd>首字缩写和缩略词用全小写，如：is_xid_start。除了最后一部分，其它部分的词语都不能由单个字母组成： btree_map 而不是 b_tree_map，PI_2 而不是 PI2。
+  通常用于声明数据库字段名。此外，URL 参数一般也使用 snake_case。在某些 <abbr title="Application Programming Interface 应用程序接口">API</abbr> 设计中，如果查询参数的键与值直接放在 URL 中，可以使用 snake_case。例如 https://api.example.com/users?user_name=john_doe。</dd>
+<dt><code>大蛇式（SCREAMING_SNAKE_CASE）</code></dt>
+<dd>所有单词都大写。通常用于宏定义和命名常量。</dd>
+</dl>
+</dd>
+<dt><code>烤串命名法（Kebab-Case）</code></dt>
+<dd>
+<p>使用中划线连接多个单词，从而形成一个字符串。由于这种连接方式形象地类似于烤肉串</p>
+<dl>
+<dt><code>小烤串式（kebab-case）</code></dt>
+<dd>所有单词小写，使用中划线连接多个单词。小烤串式在 Lisp 编程语言中经常被用到，所以有时也叫做 lisp-case。URL 路径中经常使用小烤串式。例如 www.blog.com/cool-article-1
+  这是一种很好的、干净的、可读的单词组合方式。我们在 K8S 的资源配置文件中也会看到 kebab-case。此外，在 CSS 中，所有属性名称和大多数关键字值也主要采用 kebab-case 格式。</dd>
+<dt><code>大烤串式（SCREAMING-KEBAB-CASE）</code></dt>
+<dd>所有单词大写，使用中划线连接多个单词。大烤串式主要用于突出强调被命名的对象，古老的 Cobol 编程语言中经常使用，所以有时也被称为 COBOL-CASE。</dd>
+<dt><code>HTTP头式</code></dt>
+<dd>如果所有单词首字母都大写，称之为 HTTP 头式（HTTP-Header-Case）。 因为 HTTP 头部字段的命名使用这种方式，所以称之为 HTTP 头式，如 Content-Type、User-Agent 等。</dd>
+</dl>
+</dd>
+<dt><code>匈牙利命名法（Hungarian notation）</code></dt>
+<dd><del>这是早期的规范，已废弃。变量名按：属性+类型+对象描述的顺序组合起来。按照在微软中的使用场景，分为匈牙利应用命名法和匈牙利系统命名法。 
+  匈牙利应用命名法指在微软软件产品中使用的匈牙利命名法，比如 Word、Excel 和其他应用程序。 匈牙利系统命名法是指在 Windows 操作系统中使用的匈牙利命名法，因 Windows <abbr title="Application Programming Interface 应用程序接口">API</abbr> 而被大家熟知。
+  匈牙利系统命名法在匈牙利应用命名法之后出现，二者的区别主要在于前缀的目的不同。</del></dd>
+</dl>
+<h3 id="rust">Rust 中的常见命名法与规范</h3>
+<p>Rust变量名中可以包含字母、数字和下划线，必须以字母或下划线开头，区分大小写。</p>
+<p>函数体需要用花括号包裹，一般左花括号与函数声明置于同一行并以空格分隔。</p>
+<p>Rust 缩进风格为 4 个空格，而不是 1 个水平制表符。Rust 代码中的函数和变量名使用 snake case 规范风格。</p>
+<p>词序应保持一致。动词-宾语-错误的词序。例如 ParseAddrError，而不是 AddrParseError。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>命名法</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>常量</td>
+<td>大蛇形命名法</td>
+<td>NAME</td>
+</tr>
+<tr>
+<td>结构体、 Trait</td>
+<td>大驼峰命名法</td>
+<td>struct FirstName { name: String}</td>
+</tr>
+<tr>
+<td>复合数据类型</td>
+<td>蛇形命名法</td>
+<td>tup、array</td>
+</tr>
+<tr>
+<td>文件名、变量、函数、方法</td>
+<td>蛇形命名法</td>
+<td>file_name.rs、main.rs</td>
+</tr>
+<tr>
+<td>Crate</td>
+<td>蛇形命名法</td>
+<td>actix-web，Cargo默认会把连字符“-”转换成下划线“_”。<br/>不建议以“-rs”，“_rs”，“-rust”为后缀来命名 Crate。<br/>Cargo 会强制性的将此后缀去掉。</td>
+</tr>
+<tr>
+<td>feature</td>
+<td>蛇形命名法</td>
+<td>不要包含没有任何实际意义的词语，例如 use-derive 。<br/>应直接将特性命名为 derive。</td>
+</tr>
+<tr>
+<td>宏</td>
+<td>蛇形命名法</td>
+<td>println!</td>
+</tr>
+</tbody>
+</table>
+<p>Rust 开发了一个叫做 rustfmt 的自动格式化工具，能够将用户编写的代码自动调整为一种标准风格。Rust中已经包含了该工具。详细使用参见命令手册：rustfmt --help</p>
+<h3 id="as_to_into_">临时转换命名遵循 as_、to_、into_ 的约定</h3>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>代价</th>
+<th>所有权</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>as_</td>
+<td>零成本</td>
+<td>borrowed -&gt; borrowed</td>
+<td>都是借用，且零成本</td>
+</tr>
+<tr>
+<td>to_</td>
+<td>开销很大</td>
+<td>borrowed -&gt; borrowed</td>
+<td>都是借用，但开销大</td>
+</tr>
+<tr>
+<td>to_</td>
+<td>开销很大</td>
+<td>borrowed -&gt; owned (non-Copy types)</td>
+<td></td>
+</tr>
+<tr>
+<td>to_</td>
+<td>开销很大</td>
+<td>owned -&gt; owned (Copy types)</td>
+<td></td>
+</tr>
+<tr>
+<td>into_</td>
+<td>不确定</td>
+<td>owned -&gt; owned (non-Copy types)</td>
+<td>会消耗（‌转移所有权）‌调用者，‌并返回一个新的值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getter">获取器（Getter）</h3>
+<p>除了少数例外情况外,在Rust代码中不使用"get_"前缀来命名获取器（getter）。
+get 的命名仅在存在单个明显可通过 getter 合理获取的对象时使用。例如,Cell::get 用于访问 Cell 的内容。因为getter和conversion之间的区别可能是微妙的,而且并不总是明确的。</p>
+<p>对于需要进行运行时验证(如边界检查)的getter,可以考虑添加不安全的_unchecked变体。</p>
+<h3 id="iterator">集合迭代器（Iterator）</h3>
+<p>集合上产生迭代器的方法遵循 iter、iter_mut、into_iter(C-ITER)的命名规则，迭代器类型的命名与生成它们的方法匹配。</p>
+<h2 id="_3">表达式与语句</h2>
+<h2 id="_4">函数</h2>
+<h2 id="type-system">类型系统（type system）</h2>
+<p>为什么存在类型？</p>
+<p>在底层的硬件机器中，代码和数据都是0和1，类型首要的作用是区分是代码还是数据。不同类型执行的方式不同，执行方式错误可引发严重错误。</p>
+<p>类型：一种数据的分类，定义了允许取值的集合（通常还包括数据可执行的操作、数据的意义）。</p>
+<p>例如：布尔值类型取值为 true 和 false ；Int16 值类型表示值介于-32768 到+32767 之间的有符号整数集合。</p>
+<p>类型系统：一组规则，为编程语言的元素分配和实施类型。这些元素可以是变量、表达式、函数和其他高级结构。</p>
+<p>例如：声明定义该元素是会是存放字符串、数字数组、函数、等；或者像 JavaScript 中使用 let，在运行时候会判断元素是什么类型；或者由类型系统隐式的判断该元素的类型。</p>
+<p>可确定大小类型</p>
+<p>胖指针(fat pointer，又译宽指针)：<abbr title="Dynamic Sized Type 动态大小类型">DST</abbr> -切片或特征对象的引用和原始指针。字面意思比正常我们理解指针要"宽"，其实本质上就是一个胖指针所占用的空间不再是通常的一个指针，而是用16个字节或者更多字节，包含了动态大小类型地址信息和携带了长度信息的指针，&amp;str就是胖指针。宽指针在rust编程语言中应用广泛。例如trait、slice内部都是由宽指针实现。一个指针（实际数据的内存地址和）+一个数据长度,长度为两个指针大小。</p>
+<p><abbr title="Zero Sized Type 零大小类型">ZST</abbr>，不需要任何内存表示的类型，比如单元类型和单元结构体,大小都是零。</p>
+<h3 id="_5">数据类型</h3>
+<p>堆与堆栈</p>
+<p>为了说明堆与堆栈，必须引入编译时与运行时两个概念。编译和运行其实是程序的两种时态。</p>
+<p>栈的特点就是满足那些可以提前确定的编译时内存需求，并且程序员可以不去关心栈上内存的分配与释放，这些都是由编译器完成的工作。</p>
+<p>堆的特点则是满足运行时的内存需求，灵活性强，但是分配与释放都需要程序员人为管理。</p>
+<p>编译时（Compile Time）</p>
+<p>一些信息是程序运行之前就可以确定了，对应编译时。一般来说，用栈来分配编译时就可以确定的内存需求。</p>
+<p>运行时（Runtime）</p>
+<p>另一类信息是程序真正运行起来才能确定的，对应运行时。堆则用来解决那些运行时才能确定的内存需求，其中最典型的就是字符串，由于字符串往往是由网络或者磁盘读出的，因此编译时无法确定其具体需求，这种情况下一般要通过堆分配内存。堆上的内存分配是操作系统malloc（全称是memory allocation，动态内存分配）负责的。</p>
+<p>字符串（String）</p>
+<p>以字符串s1为例，有三个元素分别是ptr（指向堆上实际字符串value的指针）、capacity（容量）、len（字符串长度）。三个元素全部都存在栈上，而实际字符串的值则存在堆上。</p>
+<div class="admonition question">
+<p class="admonition-title">Sting的真实内存布局存疑</p>
+<p>cap属性与ptr是相邻的,而非之前广为流传的图示中所说len与ptr相邻。详见： <a href="https://blog.csdn.net/BEYONDMA/article/details/118460702" title="一篇 Sting 类型内存布局研究">从内存布局上看，Rust的胖指针到底胖在栈上还是堆上？</a>但我没有实际测试过，</p>
+</div>
+<p>image("字符串指针.png")</p>
+<p>指针：即存放内存地址的变量，16位机器的代码时,指针占2个字节。32位机器的代码时,指针占4个字节。64位机器的代码时,指针占8个字节。即便指针变量是指向地址用的,但是编译器也会分配一块内存地址来存储指针变量。即&amp;p拥有一个自己的内存地址，还有一个变量p的地址值。</p>
+<p>never类型</p>
+<p>Box 智能指针</p>
+<p>将原本默认都在栈上分配内存，改成堆上分配。</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Rust</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="c1">// 将 v1 拷贝到堆上，原本的 v1 不受影响</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v1</span><span class="p">);</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v2</span><span class="p">);</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">v2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 需要解引用 Box 类型</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="cm">/*</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="cm">    [1, 2, 3, 4]</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="cm">    [1, 2, 3, 4]</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="cm">    [1, 2, 3, 4]</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="cm">    */</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>

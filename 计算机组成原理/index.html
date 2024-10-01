@@ -1,0 +1,1050 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rust个人学习笔记">
+      
+      
+        <meta name="author" content="李宏（HongLI3）">
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/Rust-Learning-Notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
+      
+      
+        <link rel="prev" href="../C%23%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/">
+      
+      
+        <link rel="next" href="../%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/">
+      
+      
+      <link rel="icon" href="../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+    
+    
+      
+        <title>计算机组成原理 - Rust 笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="Rust 笔记" class="md-header__button md-logo" aria-label="Rust 笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Rust 笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              计算机组成原理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/HongLI3/Rust-Learning-Notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HongLI3/Rust-Learning-Notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Rust 笔记" class="md-nav__button md-logo" aria-label="Rust 笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Rust 笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/HongLI3/Rust-Learning-Notes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HongLI3/Rust-Learning-Notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rust 简述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rust%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第一章 Rust 安装与配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第二章 常见编程概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rust%E7%8B%AC%E6%9C%89%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第三章 独有编程概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../C%23%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C#常见编程概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    计算机组成原理
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机的历史与分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机的历史与分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机的分类
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      冯诺依曼结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="冯诺依曼结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储程序的工作方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机系统的层次结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机系统的层次结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件与硬件的逻辑等价性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机系统的硬件组成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机系统的硬件组成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    <span class="md-ellipsis">
+      总线、接口、I/O 设备
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机的软件系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机的软件系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用软件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机系统的主要性能指标
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序性能的影响因素
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算思维
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    复杂度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E7%BB%84%E4%B8%8E%E9%93%BE%E8%A1%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数组与链表
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机的历史与分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机的历史与分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机的分类
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      冯诺依曼结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="冯诺依曼结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储程序的工作方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机系统的层次结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机系统的层次结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件与硬件的逻辑等价性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机系统的硬件组成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机系统的硬件组成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    <span class="md-ellipsis">
+      总线、接口、I/O 设备
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机的软件系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算机的软件系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用软件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机系统的主要性能指标
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序性能的影响因素
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算思维
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">计算机系统概论</h1>
+<h2 id="_2">计算机的历史与分类</h2>
+<table>
+<thead>
+<tr>
+<th>发展阶段</th>
+<th>逻辑元件</th>
+<th><abbr title="存储器">Memory</abbr></th>
+<th>运算速度（每秒）</th>
+<th>软件</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一代计算机（1946-1957）</td>
+<td>电子管</td>
+<td>电子射线管</td>
+<td>几千次到几万次</td>
+<td>使用机器语言、汇编语言</td>
+<td>军事研究、科学计算</td>
+</tr>
+<tr>
+<td>第二代计算机（1958-1964）</td>
+<td>晶体管</td>
+<td>磁芯</td>
+<td>几十万次</td>
+<td>出现监控程序、有了操作系统的雏形、开始使用高级语言</td>
+<td>数据处理、商务处理</td>
+</tr>
+<tr>
+<td>第三代计算机（1965-1970）</td>
+<td><abbr title="Small Scale Integrated circuits 小规模集成电路 10-100个元件或1-10个逻辑门">SSIC</abbr>、<abbr title="Medium Scale Integrated circuits 中规模集成电路 100-1000个元件或10-100个逻辑门">MSIC</abbr></td>
+<td>半导体</td>
+<td>几十万次到百万次</td>
+<td>出现分时操作系统、应用程序</td>
+<td>开始广泛应用</td>
+</tr>
+<tr>
+<td>第四代计算机（1971—至今）</td>
+<td><abbr title="Large Scale Integrated circuits 大规模集成电路 10^3-10^5个元件或100-10000个逻辑门">LIC</abbr>、<abbr title="Very Large Scale Integrated circuits 超大规模集成电路 10^6-10^7个元件或10000个以上逻辑门">VLSIC</abbr>、<abbr title="Ultra Large Scale Integrated circuits 特大规模集成电路 10^7-10^9个元件">ULSIC</abbr>、<abbr title="Giga Scale Integration 巨大规模集成电路也被称作极大规模集成电路或超特大规模集成电路 10^9以上个元件">GSI</abbr></td>
+<td>半导体 出现大容量软、硬盘</td>
+<td>几百万次到几百万亿次</td>
+<td>产生了微处理器，并行、流水线、高速缓存和虚拟存储器等概念都应用在这代计算机</td>
+<td>广泛应用</td>
+</tr>
+</tbody>
+</table>
+<p>第五代计算机（未来猜想）：非冯诺依曼计算机或具有人工智能的计算机。</p>
+<h3 id="_3">计算机的分类</h3>
+<ul>
+<li>按处理对象分类<ul>
+<li>模拟计算机</li>
+<li>数字计算机</li>
+</ul>
+</li>
+<li>按用途分类<ul>
+<li>专用计算机</li>
+<li>通用计算机</li>
+</ul>
+</li>
+<li>按规模与性能分类<ul>
+<li>巨型机：即超级计算机</li>
+<li>大型机：即服务器</li>
+<li>小型机：具有区别 <abbr title="Program counter 程序计数器">PC</abbr> 及其服务器的特有体系结构，还有各制造厂自己的专利技术，有的还采用小型机专用处理器。高可靠性、高可用性、高服务性，年宕机时间只有几小时。</li>
+<li>工作站（workstation）</li>
+<li>微型机：即个人计算机</li>
+</ul>
+</li>
+<li>目前流行的分类</li>
+<li>个人计算机</li>
+<li>个人移动设备</li>
+<li>服务器（包括超级计算机）</li>
+<li>云计算</li>
+<li>嵌入式计算机</li>
+</ul>
+<h2 id="_4">冯诺依曼结构</h2>
+<p>冯诺依曼结构由五大基本部分构成：运算器、控制器、存储器、I/O。</p>
+<p><img alt="计算机的基本组成" src="img\冯诺依曼结构.png" /></p>
+<p>冯诺依曼结构三个主要特征：硬件由五大系统构成、采用二进制表示数据、采用存储程序的工作方式。存储程序的工作方式是冯诺依曼结构的最核心的特征。</p>
+<h3 id="_5">存储程序的工作方式</h3>
+<ol>
+<li>编制程序</li>
+<li>存入程序：将原本由字符组成的源程序翻译为目标程序，并保存。</li>
+<li>执行程序：指令和数据都以二进制代码分开存入主存中，以此区分。大多数情况下，程序是顺序执行的，因此大多数指令需要依次序存放，而数据存放在程序不同区间。
+CPU具有 <abbr title="Program counter 程序计数器">PC</abbr>，用于存放即将执行的指令的储存单元的地址，顺序执行时，读取当前指令后，pc 中的地址自动+1，指向下一条指令地址。
+如果程序要转移，则将转移目标地址送入 <abbr title="Program counter 程序计数器">PC</abbr>。</li>
+</ol>
+<h2 id="_6">计算机系统的层次结构</h2>
+<p>第零级：硬联逻辑级，这是计算机的内核。由门，触发器等逻辑电路组成。</p>
+<p>第一级：微程序级。这是一个硬件级。这级的编程语言是微指令集（微架构），如果应用程序要直接运行在这一级，需要用微指令编写，由硬件直接执行。如：zen4、zen5.</p>
+<p>第二级：一般机器级（机器语言级）。这也是一个硬件级，这级的编程语言是指令集，由微程序来解释机器指令系统（机器语言）。如：x86、arm。</p>
+<p>第三级：操作系统级。由操作系统实现。操作系统由机器指令和广义指令组成。广义指令是操作系统定义和解释的软件指令。所以这一级也称混合层。</p>
+<p>第四级：汇编语言级。它给程序员提供了一种符号形式的语言，以减少程序编写的复杂性。这一级由汇编程序翻译执行。如果想运行汇编语言编写的程序，则机器必须支持这一层的功能。如果不需要，则这一级可以不要。</p>
+<p>第五级：高级语言级。由各高级语言编译程序支持、翻译、执行。</p>
+<h3 id="_7">软件与硬件的逻辑等价性</h3>
+<p>硬件是整个计算机系统发挥其作用的物质基础。在计算机上执行的任何功能与操作都会转化为一系列随时间变化的电信号的集合。</p>
+<p>软件是根据要完成的特定任务对硬件的机器指令的逻辑组织，它是计算机的灵魂。</p>
+<p>凡是由硬件实习的功能，同样可以用软件实现，反之亦然。虽然软件是一个无形的逻辑实体，硬件是一个有形的物理实体，但它们在逻辑上是等价的。</p>
+<p>早期计算机，为了降低造价，只让硬件实现较为简单的操作，较复杂的功能则由软件实现，这就是所谓的“硬件软化”。
+随着 <abbr title="Very Large Scale Integrated circuits 超大规模集成电路 10^6-10^7个元件或10000个以上逻辑门">VLSIC</abbr> 技术的发展，原本明显地在一般机器级通过编制程序实现的操作（如整数乘除法指令、浮点计算指令、处理字符串指令等）改为直接由硬件完成。于是出现了“软件硬化”。计算机的软硬件界限模糊了。</p>
+<h2 id="_8">计算机系统的硬件组成</h2>
+<h3 id="cpu">CPU</h3>
+<p>CPU是计算机硬件系统的核心部件，由运算部件、寄存器组、控制器组成，它们通过CPU内部总线交换信息。</p>
+<p>运算部件完成算数运算（定点数运算、浮点数运算）和逻辑运算。</p>
+<p>寄存器存放数据信息和控制信息。</p>
+<p>py控制器从主存中读取机器指令，经过分析译码，产生控制信号来控制各个部件。</p>
+<p>或者说数据通路是执行单元的集合，例如执行数据处理操作的算术逻辑单元、乘法器、寄存器和总线。它与控制单元一起组成中央处理器（CPU）。</p>
+<h3 id="_9">存储器</h3>
+<p>高速缓存（CaChe）：为了提升CPU的存取速度，在CPU核心与主存之间设置的速度很快，容量较小的存储器。用来存放当前正在使用的程序和数据。
+CaChe 的地址总与主存某一区间的地址相映射。CPU 总是首先访问高速缓存，如未找到，再访问 RAM。Cache 常集成在 CPU 内部，称为片内 CaChe。与之相对，也存在片外 CaChe。</p>
+<p>主存（RAM）：存储CPU需要的信息（指令和数据）。主存的每个存储单元都有固定的地址，CPU可以按地址直接访问，主存在机内，所以又称为内存。</p>
+<p>外存（ROM）：外存常位于主机之外，又称辅助存储器。用来存放大量需要联机保存，但CPU暂不使用的程序与数据。
+需要使用时，CPU 并不直接按地址访问他们，而是按文件名将他们从 ROM 中调入 RAM</p>
+<h3 id="io">总线、接口、I/O 设备</h3>
+<p>总线：一组能被多个部件分时共享的信息传送线。现代计算机普遍采用总线结构，即用一组总线将 CPU、存储器和 I/O 设备连接起来。
+各部件通过这组总线交换信息，任何时刻只允许一个部件或设备向总线发生信息，否则会引起信息碰撞，但允许多部件同时接收。</p>
+<p>系统总线：地址总线、数据总线、控制总线的统称。地址总线用来传输 CPU 或 I/O 设备给 RAM 的地址码。数据总线用来传输 CPU、I/O 设备之间需要交换的数据。
+控制总线传输控制信号，如：时钟信号、CPU发出的读写命令、I/O 设备送往 CPU 的请求信号等。</p>
+<p>接口： 计算机系统通常采用标准的系统总线。每种系统总线标准都规定里地址线和数据线的位数、控制线的种类和数量等。
+但各种 I/O 设备并不使用同一标准，为了让系统总线与各种 I/O 设备连接起来，需要在两者之间中设置 I/O 接口，起到缓冲、转换、连接等功能。</p>
+<p>I/O 设备：输入设备是将各种形式的外部信息转换成计算机能识别的二进制代码，输出设备是将计算机处理后的结果转换为人们能够识别的形式输出。</p>
+<h2 id="_10">计算机的软件系统</h2>
+<h3 id="_11">系统软件</h3>
+<p>操作系统</p>
+<p>语言处理程序</p>
+<p>数据库管理系统</p>
+<p>服务性支持软件</p>
+<h3 id="_12">应用软件</h3>
+<h2 id="_13">计算机系统的主要性能指标</h2>
+<p>CPU 时钟周期</p>
+<p>响应时间</p>
+<p>吞吐量</p>
+<p>CPU 执行时间</p>
+<p>CPI</p>
+<p>IPS</p>
+<p>FLOPS</p>
+<p>机器字长</p>
+<p>存储器容量</p>
+<p>总线宽度</p>
+<h2 id="_14">程序性能的影响因素</h2>
+<table>
+<thead>
+<tr>
+<th>软件或硬件组成部分</th>
+<th>该部分如何影响性能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>算法</td>
+<td>决定源码级语句的数量和执行I/O操作的数量</td>
+</tr>
+<tr>
+<td>语言、编译器和体系结构</td>
+<td>决定每条源码级语句对应的计算机指令数量</td>
+</tr>
+<tr>
+<td>处理器和存储系统</td>
+<td>决定指令执行速度</td>
+</tr>
+<tr>
+<td>I/O系统（硬件和操作系统）</td>
+<td>决定I/O操作可能的执行速度</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_15">计算思维</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.code.select", "content.code.annotate", "content.tooltips"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>
